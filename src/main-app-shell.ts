@@ -2,6 +2,8 @@ import { provide } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { APP_SHELL_BUILD_PROVIDERS } from '@angular/app-shell';
 import { AppComponent } from './app/';
+import { HTTP_PROVIDERS } from '@angular/http';
+
 import {
   REQUEST_URL,
   ORIGIN_URL
@@ -21,7 +23,8 @@ export const options = {
   providers: [
     // What URL should Angular be treating the app as if navigating
     provide(APP_BASE_HREF, {useValue: '/'}),
-    provide(REQUEST_URL, {useValue: '/'})
+    provide(REQUEST_URL, {useValue: '/'}),
+    HTTP_PROVIDERS
   ],
   async: false,
   preboot: false
