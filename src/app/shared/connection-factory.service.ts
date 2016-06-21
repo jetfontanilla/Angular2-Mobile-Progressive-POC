@@ -51,21 +51,22 @@ export class ConnectionFactoryService {
 
     service(connectionName?: string) {
 
+        let self = this;
         let baseServiceUrl = connectionName && connectionName in ConnectionFactoryService.SERVICE_URL
             ? ConnectionFactoryService.SERVICE_URL[connectionName]
             : ConnectionFactoryService.SERVICE_URL.base;
 
-        let request = function(method: string,
+        let request = (method: string,
                                requestUrl: string,
                                query?: Object,
                                postBody?: any,
-                               additionalHeaders?: Object): Observable<Object> {
+                               additionalHeaders?: Object): Observable<Object> => {
             let params = new URLSearchParams();
             if (query) {
                 _.forEach(query, (value, key) => params.set(key, value));
             }
             //let url = EC_CONFIG.basePath + requestUrl;
-            let url = 'http://www.devenglishcentral.com' + requestUrl;
+            let url = 'http://www.localenglishcentral.com' + requestUrl;
             let body = postBody ? JSON.stringify(postBody) : '';
             let headers = new Headers(_.assign({'Content-Type': 'application/json'}, additionalHeaders));
             let options = new RequestOptions({headers: headers, search: params});
@@ -127,7 +128,7 @@ export class ConnectionFactoryService {
 
     private _extractData(res: Response): Object {
         let body = res.json();
-        return body.data || {};
+        return body || {};
     }
 
     private _handleError(error: any) {
